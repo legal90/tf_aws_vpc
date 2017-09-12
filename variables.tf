@@ -13,6 +13,16 @@ variable "instance_tenancy" {
   default     = "default"
 }
 
+variable "assign_generated_ipv6_cidr_block" {
+  description = "Requests an Amazon-provided IPv6 CIDR block with a /56 prefix length for the VPC"
+  default     = false
+}
+
+variable "assign_public_ipv6_address_on_creation" {
+  description = "Specify true to indicate that network interfaces created in the public subnet should be assigned an IPv6 address"
+  default     = false
+}
+
 variable "public_subnets" {
   description = "A list of public subnets inside the VPC."
   default     = []

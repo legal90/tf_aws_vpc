@@ -4,6 +4,8 @@ resource "aws_vpc" "mod" {
   enable_dns_hostnames = "${var.enable_dns_hostnames}"
   enable_dns_support   = "${var.enable_dns_support}"
 
+  assign_generated_ipv6_cidr_block = "${var.assign_generated_ipv6_cidr_block}"
+
   tags = "${merge(var.tags, map("Name", format("%s", var.name)))}"
 }
 
@@ -104,6 +106,8 @@ resource "aws_subnet" "public" {
   cidr_block              = "${var.public_subnets[count.index]}"
   availability_zone       = "${element(var.azs, count.index)}"
   map_public_ip_on_launch = "${var.map_public_ip_on_launch}"
+
+  assign_ipv6_address_on_creation = "${var.assign_public_ipv6_address_on_creation}"
 
   tags = "${merge(var.tags, var.public_subnet_tags, map("Name", format("%s-subnet-public-%s", var.name, element(var.azs, count.index))))}"
 }
