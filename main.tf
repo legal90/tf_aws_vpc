@@ -34,6 +34,14 @@ resource "aws_route" "public_internet_gateway" {
   gateway_id             = "${aws_internet_gateway.mod.id}"
 }
 
+resource "aws_route" "public_internet_gateway_ipv6" {
+  count = "${var.assign_generated_ipv6_cidr_block ? 1 : 0}"
+
+  route_table_id         = "${aws_route_table.public.id}"
+  destination_ipv6_cidr_block = "::/0"
+  gateway_id             = "${aws_internet_gateway.mod.id}"
+}
+
 resource "aws_route" "private_nat_gateway" {
   count = "${var.enable_nat_gateway ? length(var.azs) : 0}"
 
